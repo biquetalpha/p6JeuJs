@@ -33,25 +33,24 @@ class Game {
 
     async movePlayer() {
         // console.log(await EventListenerPromisify.waitClick(this.canvas)); 
+
         canvas.addEventListener('click', handleClick, false);
 
         function getMousePos(canvas, evt) {
-            var rect = canvas.getBoundingClientRect();
+            //lit la position de la souris
+
+            let rect = canvas.getBoundingClientRect();
             return {
-                x: evt.clientX - rect.left,
-                y: evt.clientY - rect.top
+                x: (evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width,
+                y: (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
             };
         }
-        canvas.addEventListener('mousemove', function(evt) {
-            var mousePos = getMousePos(canvas, evt);
-            var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
-            console.log(canvas, message);
-        }, false);
 
-        function handleClick() {
-
-
-            console.log('you clicked');
+        //affiche la postion de la souris lors du clic
+        function handleClick(evt) {
+            let mousePos = getMousePos(canvas, evt);
+            let message = 'You clicked!!!Mouse position: ' + "X:" + Math.round(mousePos.x) + ',' + "Y:" + Math.round(mousePos.y);
+            console.log(message);
         }
 
     }
