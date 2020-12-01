@@ -35,18 +35,23 @@ class Game {
         // console.log(await EventListenerPromisify.waitClick(this.canvas)); 
         canvas.addEventListener('click', handleClick, false);
 
+        function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+        canvas.addEventListener('mousemove', function(evt) {
+            var mousePos = getMousePos(canvas, evt);
+            var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+            console.log(canvas, message);
+        }, false);
+
         function handleClick() {
-            var offsetX = canvas.offsetLeft;
-            var offsetY = canvas.offsetTop;
-            // get the mouse position
-            // the offset adjustments are needed for the canvas position on the page
 
-            mouseX = parseInt(this.width - offsetX);
-            mouseY = parseInt(this.height - offsetY);
 
-            // just testing...report the results
-
-            console.log("You clicked at: " + mouseX + "/" + mouseY);
+            console.log('you clicked');
         }
 
     }
@@ -55,19 +60,7 @@ class Game {
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 const acase = this.map.grid[y][x];
-
-
-                // if (
-                //     (!acase.isSolid()) &&
-                //     (
-                //         (x >= currentPlayer.x - 3 && x <= currentPlayer.x + 3 && y === currentPlayer.y) ||
-                //         (y >= currentPlayer.y - 3 && y <= currentPlayer.y + 3 && x === currentPlayer.x)
-                //     )
-                // ) {
-                //     acase.isAccessible = true;
-                // } else {
                 acase.isAccessible = false;
-                // }
             }
         }
 
