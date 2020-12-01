@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Projet 6 - jeu de plateau</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <header>
+        <h1>Jeu de plateau - JavaScript</h1>
+    </header>
+
+
+    <div class="row">
+        <div id="player1" class="col s3">
+            <div id="frame" class="col s6">
+                <img src="img/interface/p1.png" id="playerImg">
+                <img src="img/interface/box.png" id="playerFrame">
+                <img src="img/interface/health-bar-box.png" id="lifeBar">
+            </div>
+
+        </div>
+        <div id="game" class="col s6">
+
+
+            <div class="valign-wrapper">
+                <canvas class="center-align" id="board"></canvas>
+                <!-- <img class="center-align" src="img/interface/gameFrame.png" id="gameFrame"> -->
+
+            </div>
+
+        </div>
+        <div id="player2" class="col s3">
+            <div id="frame" class="col s6">
+                <img src="img/interface/p2.png" id="playerImg">
+                <img src="img/interface/box.png" id="playerFrame">
+                <img src="img/interface/health-bar-box.png" id="lifeBar">
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/Random.js"></script>
+    <script src="js/AssetLoader.js"></script>
+    <script src="js/ACase.js"></script>
+    <script src="js/Empty.js"></script>
+    <script src="js/Wall.js"></script>
+    <script src="js/Weapon.js"></script>
+    <script src="js/Player.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/EventListenerPromisify.js"></script>
+    <script src="js/Map.js"></script>
+    <script src="js/App.js"></script>
+
+
+</body>
+
+
+</html>

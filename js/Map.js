@@ -10,6 +10,8 @@ class Map {
                 this.grid[y].push(new Empty(x, y));
             }
         }
+        this.canvas.width = width * 60;
+        this.canvas.height = height * 60;
 
         this.initWalls();
         this.initWeapons();
@@ -17,7 +19,13 @@ class Map {
 
         console.log(this.grid);
     }
+    get height() {
+        return this.grid.length;
+    }
 
+    get width() {
+        return this.grid[0].length;
+    }
     isEmpty(x, y) {
         return this.grid[y][x] instanceof Empty;
     }

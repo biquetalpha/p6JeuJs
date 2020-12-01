@@ -1,0 +1,61 @@
+body {
+    background-image: url("img/interface/background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#board {
+    padding-left: 80px;
+    padding-bottom: 130px;
+    transform: scale(0.9);
+}
+
+#player1 {
+    height: 800px;
+    background-image: url("img/interface/Panneau2.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#game {
+    width: 800px;
+    padding-top: 100px;
+    background-image: url("img/interface/Panneau1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#player2 {
+    height: 800px;
+    background-image: url("img/interface/Panneau2.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#playerImg {
+    position: relative;
+    z-index: 5;
+}
+
+#playerFrame {
+    position: absolute;
+    z-index: 4;
+}
+
+#gameFrame {
+    position: relative;
+}
+
+#frame {
+    padding-left: 50px;
+    padding-top: 100px;
+}
+
+
+/* #frame img {
+    transform: scale(1.5);
+} */

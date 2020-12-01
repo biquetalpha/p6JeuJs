@@ -2,6 +2,7 @@ class Game {
     constructor(canvas, width, height, assets) {
         this.map = new Map(canvas, 10, 10, assets);
         this.canvas = canvas;
+
         this.map.display();
 
 
@@ -9,7 +10,7 @@ class Game {
         this.height = height;
     }
     async start() {
-        this.currentPlayer = 1;
+        this.currentPlayerId = 1;
 
         do {
             let currentPlayer = undefined;
@@ -29,11 +30,28 @@ class Game {
         return true;
     }
 
+
     async movePlayer() {
-        console.log(await EventListenerPromisify.waitClick(this.canvas));
+        // console.log(await EventListenerPromisify.waitClick(this.canvas)); 
+        canvas.addEventListener('click', handleClick, false);
+
+        function handleClick() {
+            var offsetX = canvas.offsetLeft;
+            var offsetY = canvas.offsetTop;
+            // get the mouse position
+            // the offset adjustments are needed for the canvas position on the page
+
+            mouseX = parseInt(this.width - offsetX);
+            mouseY = parseInt(this.height - offsetY);
+
+            // just testing...report the results
+
+            console.log("You clicked at: " + mouseX + "/" + mouseY);
+        }
+
     }
 
-    updateAccessible() {
+    updateAccessible(currentPlayer) {
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 const acase = this.map.grid[y][x];
