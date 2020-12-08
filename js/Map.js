@@ -1,6 +1,6 @@
 class Map {
 
-    constructor(canvas, width, height, assets) {
+    constructor(canvas, width, height, caseSize, assets) {
         this.assets = assets;
         this.canvas = canvas;
         this.grid = [];
@@ -10,8 +10,9 @@ class Map {
                 this.grid[y].push(new Empty(x, y));
             }
         }
-        this.canvas.width = width * 60;
-        this.canvas.height = height * 60;
+        this.caseSize = caseSize;
+        this.canvas.width = width * this.caseSize;
+        this.canvas.height = height * this.caseSize;
 
         this.initWalls();
         this.initWeapons();
@@ -46,8 +47,8 @@ class Map {
 
         for (let i = 0; i < nbWeapons; i++) {
             let { x, y } = this.findEmptyCase();
-            const weaponAsset = weaponsAsset[getRandom(0, weaponsAsset.length - 1)];
-            this.grid[y][x] = new Weapon(x, y, weaponAsset.asset, weaponAsset.damage, weaponAsset.ammo, weaponAsset.range);
+            const weaponAsset = weaponsAsset[getRandom(1, weaponsAsset.length - 1)];
+            this.grid[y][x] = new Weapon(x, y, weaponAsset.asset, weaponAsset.damage);
         }
     }
 
@@ -85,13 +86,13 @@ class Map {
             for (let x = 0; x < this.width; x++) {
                 let acase = this.grid[y][x];
 
-                context.drawImage(this.assets.background, x * 60, y * 60, 60, 60);
+                context.drawImage(this.assets.background, x * this.caseSize, y * this.caseSize, this.caseSize, this.caseSize);
                 if (acase.isAccessible) {
-                    context.drawImage(this.assets.step, x * 60, y * 60, 60, 60);
+                    context.drawImage(this.assets.step, x * this.caseSize, y * this.caseSize, this.caseSize, this.caseSize);
                 }
 
                 if (acase.asset) {
-                    context.drawImage(acase.asset, x * 60, y * 60, 60, 60);
+                    context.drawImage(acase.asset, x * this.caseSize, y * this.caseSize, this.caseSize, this.caseSize);
                 }
             }
         }

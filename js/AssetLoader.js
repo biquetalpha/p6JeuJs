@@ -12,25 +12,20 @@ class AssetLoader {
                 asset: await this.createAsset('img/map/wall4.png')
             }],
             weapons: [{
+                asset: await this.createAsset('img/weapon/knife.png'),
+                damage: 5
+            }, {
                 asset: await this.createAsset('img/weapon/weapon1.png'),
-                damage: 15,
-                ammo: 10,
-                range: 2
+                damage: 15
             }, {
                 asset: await this.createAsset('img/weapon/weapon2.png'),
-                damage: 25,
-                ammo: 10,
-                range: 2
+                damage: 25
             }, {
                 asset: await this.createAsset('img/weapon/weapon3.png'),
-                damage: 35,
-                ammo: 5,
-                range: 5
+                damage: 35
             }, {
                 asset: await this.createAsset('img/weapon/weapon4.png'),
-                damage: 45,
-                ammo: 10,
-                range: 4
+                damage: 45
             }],
             player1: await this.createAsset('img/player/player1.png'),
             player2: await this.createAsset('img/player/player2.png'),

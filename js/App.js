@@ -16,7 +16,7 @@ async function start(canvas) {
         throw new Error('Assets not loaded');
     }
 
-    let game = new Game(canvas, 10, 10, assetsLoader.assets);
+    let game = new Game(canvas, 10, 10, 60, assetsLoader.assets);
     game.start();
 
 

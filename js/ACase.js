@@ -5,13 +5,16 @@ class ACase {
         this.x = x;
         this.y = y;
         this.asset = asset;
-        this.isAccesible = false;
+        this.isAccessible = false;
+        this.isCatchable = false;
     }
 
-    get assets() {
-        return this.assets;
-    }
+
     isSolid() {
         return false;
     }
+    isCatchable() {
+        return false;
+    }
+
 }
