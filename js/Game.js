@@ -2,10 +2,7 @@ class Game {
     constructor(canvas, width, height, caseSize, assets) {
         this.map = new Map(canvas, 10, 10, caseSize, assets);
         this.canvas = canvas;
-
         this.map.display();
-
-
         this.width = width;
         this.height = height;
         this.caseSize = caseSize;
@@ -27,7 +24,7 @@ class Game {
     }
 
     isFinished() {
-        return true;
+        return false;
     }
 
 
@@ -40,13 +37,47 @@ class Game {
             aCase = this.map.grid[positionCaseClicked.y][positionCaseClicked.x];
         } while (!aCase.isAccessible);
 
-
         this.updateAccessible(currentPlayer, true);
-        this.updateCatchable(currentPlayer, true)
-        this.map.grid[currentPlayer.y][currentPlayer.x] = new Empty(currentPlayer.x, currentPlayer.y);
-        this.map.grid[aCase.y][aCase.x] = currentPlayer;
-        this.map.display();
+
+        let currentPosition = {
+            x: currentPlayer.x,
+            y: currentPlayer.y
+        };
+        let moveAxis = (currentPlayer.x === aCase.x) ? 'y' : 'x';
+        let moveDirection = ((aCase)[moveAxis] > (currentPlayer)[moveAxis]) ? 1 : -1;
+        for ((currentPosition)[moveAxis] += moveDirection;
+            (currentPosition)[moveAxis] !== (aCase)[moveAxis] + moveDirection;
+            (currentPosition)[moveAxis] += moveDirection) {
+            await new Promise(resolve => {
+                setTimeout(resolve, 250);
+            });
+            this.changeCase(currentPlayer, this.map.grid[currentPosition.y][currentPosition.x]);
+            this.map.display();
+        }
+
     }
+
+    changeCase(currentPlayer, aCase) {
+        if (currentPlayer.weaponToLet) {
+            currentPlayer.weaponToLet.x = currentPlayer.x;
+            currentPlayer.weaponToLet.y = currentPlayer.y;
+            this.map.grid[currentPlayer.y][currentPlayer.x] = currentPlayer.weaponToLet;
+
+            currentPlayer.weaponToLet = undefined;
+        } else {
+            this.map.grid[currentPlayer.y][currentPlayer.x] = new Empty(currentPlayer.x, currentPlayer.y);
+        }
+
+        if (aCase instanceof Weapon) {
+            currentPlayer.weaponToLet = currentPlayer.weapon;
+            currentPlayer.weapon = aCase;
+        }
+        this.map.grid[aCase.y][aCase.x] = currentPlayer;
+        currentPlayer.x = aCase.x;
+        currentPlayer.y = aCase.y;
+    }
+
+
 
     async waitClickOnMap() {
         const event = await EventListenerPromisify.waitClick(this.canvas);
@@ -70,6 +101,8 @@ class Game {
         let isAccessibleBottom = true;
         let isAccessibleLeft = true;
         let isAccessibleRight = true;
+
+
         for (let offset = 1; offset <= 3; offset++) {
             if (currentPlayer.y - offset >= 0) {
                 const acaseTop = this.map.grid[currentPlayer.y - offset][currentPlayer.x];
@@ -120,64 +153,5 @@ class Game {
         }
     }
 
-    updateCatchable(currentPlayer) {
-        for (let y = 0; y < this.height; y++) {
-            for (let x = 0; x < this.width; x++) {
-                const acase = this.map.grid[y][x];
-                acase.isCatchable = false;
-            }
-        }
-
-        let isCatchableTop = true;
-        let isCatchableBottom = true;
-        let isCatchableLeft = true;
-        let isCatchableRight = true;
-        for (let offset = 1; offset <= 3; offset++) {
-            if (currentPlayer.y - offset >= 0) {
-                const acaseTop = this.map.grid[currentPlayer.y - offset][currentPlayer.x];
-                if (isCatchableTop) {
-                    if (acaseTop.isAccessible === true) {
-                        if (acaseTop.isCatchable()) {
-                            isCatchableTop = true;
-                        }
-                    }
-                }
-
-            }
-            if (currentPlayer.y + offset < this.height) {
-                const acaseBottom = this.map.grid[currentPlayer.y + offset][currentPlayer.x];
-                if (isCatchableBottom) {
-                    if (acaseBottom.isAccessible === true) {
-                        if (acaseBottom.isCatchable()) {
-                            isCatchableBottom = true;
-                        }
-                    }
-                }
-            }
-            if (currentPlayer.x - offset >= 0) {
-                const acaseLeft = this.map.grid[currentPlayer.y][currentPlayer.x - offset];
-                if (isCatchableLeft) {
-                    if (acaseLeft.isAccessible === true) {
-                        if (acaseLeft.isCatchable()) {
-                            isCatchableLeft = true;
-                        }
-                    }
-                }
-            }
-            if (currentPlayer.x + offset < this.width) {
-                const acaseRight = this.map.grid[currentPlayer.y][currentPlayer.x + offset];
-                if (isCatchableRight) {
-                    if (acaseRight.isAccessible === true) {
-                        if (acaseRight.isCatchable()) {
-                            isCatchableRight = true;
-                        }
-                    }
-                }
-            }
-
-        }
-
-        this.map.display();
-    }
 
 }

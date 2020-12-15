@@ -1,9 +1,9 @@
 class Player extends ACase {
-    constructor(playerId, x, y, assets, life, damage) {
+    constructor(playerId, x, y, assets, life) {
         super(x, y, assets);
         this.playerId = playerId;
         this.life = life;
-        this.damage = damage;
+
     }
     isSolid() {
         return true;

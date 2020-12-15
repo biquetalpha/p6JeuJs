@@ -5,12 +5,6 @@ body {
     background-size: cover;
 }
 
-#board {
-    padding-left: 80px;
-    padding-bottom: 130px;
-    transform: scale(0.9);
-}
-
 #player1 {
     height: 800px;
     background-image: url("img/interface/Panneau2.png");
