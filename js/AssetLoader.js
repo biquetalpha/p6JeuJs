@@ -17,27 +17,19 @@ class AssetLoader {
             weapons: [{
                 asset: await this.createAsset('img/weapon/weapon0.png'),
                 damage: 5
-
             }, {
                 asset: await this.createAsset('img/weapon/weapon1.png'),
                 damage: 15
-
             }, {
                 asset: await this.createAsset('img/weapon/weapon2.png'),
                 damage: 25
-
             }, {
                 asset: await this.createAsset('img/weapon/weapon3.png'),
                 damage: 35
-
             }, {
                 asset: await this.createAsset('img/weapon/weapon4.png'),
                 damage: 45
-
             }],
-            player1: await this.createAsset('img/player/player1.png'),
-            player2: await this.createAsset('img/player/player2.png'),
-            step: await this.createAsset('img/map/step.png')
         };
     }
 

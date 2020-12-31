@@ -7,26 +7,107 @@ class Game {
         this.height = height;
         this.caseSize = caseSize;
     }
+
+    //=====================initialisation du jeu=====================
     async start() {
         this.currentPlayerId = 1;
-
+        this.count = 0;
         do {
-            let currentPlayer = undefined;
-            if (this.currentPlayerId === 1) {
-                currentPlayer = this.map.player1;
-            } else {
-                currentPlayer = this.map.player2;
-            }
-
+            let currentPlayer = this.map["player" + ((this.count % 2) + 1)];
             this.updateAccessible(currentPlayer);
             await this.movePlayer(currentPlayer);
+            this.count++;
+            console.log("round:", this.count);
+            this.updatePlayerDistance();
+        } while (this.MovementIsFinished());
+    }
+
+
+    MovementIsFinished() {
+        if (this.startFight)
+            return true;
+        else {
+            return false;
+        }
+
+    }
+
+    updatePlayerDistance() {
+        let player1 = this.map.player1;
+        let player2 = this.map.player2;
+        let distanceX = (player1.x - player2.x) ** 2;
+        let distanceY = (player1.y - player2.y) ** 2;
+
+        let distance = (distanceX + distanceY) ** 0.5;
+        console.log("distance:", distance);
+
+        if (distance <= 1) {
+            this.startFight();
+        }
+    }
+
+
+    //=====================combat=====================
+
+
+
+    async startFight() { //initialise le combat et  contient les fonctions de ce dernier
+        console.log("fight start");
+        this.currentPlayerId = 1;
+        this.count = 0;
+        do {
+            let currentPlayer = this.map["player" + ((this.count % 2) + 1)];
+
+            await this.onClickFight(currentPlayer); // attent le clic sur le bouton d'attaque ou defense
+            this.count++;
+            console.log("fightround:", this.count, "joueur:", currentPlayer);
         } while (!this.isFinished());
-    }
 
+    }
     isFinished() {
-        return false;
+        let player1Life = this.map.player1.life;
+        let player2Life = this.map.player2.life;
+        if ((player1Life || player2Life) === 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
+
+    async onClickFight(currentPlayer) { //lit les click sur bouton suivant le joueur qui joue 
+
+        let clickFight = await EventListenerPromisify.waitClickFight();
+        let clickDefense = await EventListenerPromisify.waitClickDefense();
+        if (clickFight) {
+            this.updatePlayerLife(currentPlayer);
+            console.log("attaque!");
+        } else if (clickDefense) {
+            this.updatePlayerDefense(currentPlayer);
+        }
+
+    }
+
+    updatePlayerLife(currentPlayer) { // met a jour la vie restante du joueur
+
+        let updatedPlayer1Life = this.map.player1.life - this.map.player2.weapon.damage;
+        let updatedPlayer2Life = this.map.player2.life - this.map.player1.weapon.damage;
+
+
+        if (currentPlayer === this.map.player1) {
+            updatedPlayer2Life;
+            console.log("player 2, vie restante:", updatedPlayer2Life);
+        } else if (currentPlayer === this.map.player2) {
+            updatedPlayer1Life;
+            console.log("player 1, vie restante:", updatedPlayer1Life);
+        }
+    }
+    updatePlayerDefense() {
+        console.log("defense");
+    }
+
+
+    //=====================deplacements=====================
 
 
     async movePlayer(currentPlayer) {
@@ -59,6 +140,7 @@ class Game {
 
     changeCase(currentPlayer, aCase) {
         if (currentPlayer.weaponToLet) {
+            console.log(currentPlayer.weaponToLet);
             currentPlayer.weaponToLet.x = currentPlayer.x;
             currentPlayer.weaponToLet.y = currentPlayer.y;
             this.map.grid[currentPlayer.y][currentPlayer.x] = currentPlayer.weaponToLet;

@@ -17,34 +17,57 @@
     </header>
 
 
-    <div class="row">
-        <div id="player1" class="col s3">
-            <div id="frame" class="col s6">
-                <img src="img/interface/p1.png" id="playerImg">
-                <img src="img/interface/box.png" id="playerFrame">
-                <img src="img/interface/health-bar-box.png" id="lifeBar">
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l6" id="boardWindow">
+                <canvas id="board"></canvas>
             </div>
+            <div class="col s12 m12 l3" id="game">
+                <div class="row">
+                    <div class="card-panel orange lighten-3 player" id="P1">
+                        <img src="img/interface/boxP1.png">
+                        <p id="P1Life">Player 1 life</p>
+                        <p id="P1Weapon">Player 1 weapon</p>
+                        <a id="Player1Attack" class="waves-effect waves-light btn">attaque</a>
+                        <a id="Player1Defense" class="waves-effect waves-light btn">défense</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <div class="card-panel orange lighten-3 player" id="P2">
+                            <img src="img/interface/boxP2.png">
+                            <p id="P2Life">Player 2 life</p>
+                            <p id="P2Weapon">Player 2 weapon</p>
+                            <a id="player2Attack" class="waves-effect waves-light btn">attaque</a>
+                            <a id="player2Defense" class="waves-effect waves-light btn">défense</a>
+                        </div>
+                    </div>
 
-        </div>
-        <div id="game" class="col s6">
+                </div>
+                <div class="row">
+                    <div>
+                        <div class="card-panel orange lighten-3 player" id="gameInfo">
 
 
-            <div class="valign-wrapper">
-                <canvas class="center-align" id="board"></canvas>
-                <!-- <img class="center-align" src="img/interface/gameFrame.png" id="gameFrame"> -->
+                            <p id="round">round count </p>
+                        </div>
+                    </div>
 
+                </div>
             </div>
-
         </div>
-        <div id="player2" class="col s3">
-            <div id="frame" class="col s6">
-                <img src="img/interface/p2.png" id="playerImg">
-                <img src="img/interface/box.png" id="playerFrame">
-                <img src="img/interface/health-bar-box.png" id="lifeBar">
-            </div>
 
-        </div>
     </div>
+
+
+
+
+
+
 
 
 

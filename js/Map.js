@@ -47,24 +47,23 @@ class Map {
 
         for (let i = 0; i < nbWeapons; i++) {
             let { x, y } = this.findEmptyCase();
-            const weaponAsset = weaponsAsset[getRandom(1, weaponsAsset.length - 1)];
-            this.grid[y][x] = new Weapon(x, y, weaponAsset);
+            const weapon = weaponsAsset[getRandom(1, weaponsAsset.length - 1)];
+            this.grid[y][x] = new Weapon(x, y, weapon.asset, weapon.damage);
         }
     }
+
 
     initPlayers() {
 
         let { x: x1, y: y1 } = this.findEmptyCase();
-
-        this.player1 = new Player(1, x1, y1, this.assets.player1, 100,
-            new Weapon(0, 0, this.assets.weapons[0], 10));
+        let baseWeapon = this.assets.weapons[0];
+        this.player1 = new Player(1, x1, y1, this.assets.player1, 100, new Weapon(0, 0, baseWeapon.asset, baseWeapon.damage));
         this.grid[y1][x1] = this.player1;
 
 
         let { x: x2, y: y2 } = this.findEmptyCase();
 
-        this.player2 = new Player(2, x2, y2, this.assets.player2, 100,
-            new Weapon(0, 0, this.assets.weapons[0], 10));
+        this.player2 = new Player(2, x2, y2, this.assets.player2, 100, new Weapon(0, 0, baseWeapon.asset, baseWeapon.damage));
         this.grid[y2][x2] = this.player2;
     }
     findEmptyCase() {
